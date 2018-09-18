@@ -38,7 +38,7 @@ app.post('/add', function(req, res) {
 
 });
 
-// <!-- 1 - simple connection --!>
+// <!-- 1 - simple connection to mongoDB --!>
 // { <-- show event -->
 
 	// MongoClient.connect(mongoDBurl, function(err, db) {
