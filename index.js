@@ -18,33 +18,11 @@ app.post('/show', function(req, res) {
 	if (name === '' || name === undefined || name === null) return res.json({"msg":"enter your name!"});
 
 	// enter mondodb code
-	MongoClient.connect(mongoDBurl, { useNewUrlParser: true }, function(err, db) {
-		if (err) throw err;
 
-		const dbo = db.db("alerts");
-
-		dbo.collection("messages").countDocuments({}, function(err, numOfDocs){
-			if (err) throw err;
-			const ranMsgId = Math.floor(Math.random() * numOfDocs) + 1; // random number between 1 to numOfDocs
-
-			dbo.collection("messages").findOne({id:ranMsgId}, function(err, result) {
-				if (err) throw err;
-
-				var myquery = { id: ranMsgId };
-				var newvalues = { $inc: { counter: 1} };
-
-				dbo.collection("messages").updateOne(myquery, newvalues, function(err, unUseResult) {
-					if (err) throw err;
-					console.log(unUseResult);
-					return res.json({"msg":result.msg});
-				});
-			});
-		});
-	});
 
 	// <!-- 0 - comment when connect to mLab --!>
-	// const msg = 'Hello ' + name + '!!';
-	// return res.json({"msg":msg});
+	const msg = 'Hello ' + name + '!!';
+	return res.json({"msg":msg});
 
 });
 
@@ -52,29 +30,6 @@ app.post('/add', function(req, res) {
 	console.log('/add');
 
 	// enter mondodb code
-	var name = req.body.name;
-
-	if (name === '' || name === undefined || name === null) return res.json({"msg":"enter your name!"});
-
-	MongoClient.connect(mongoDBurl, { useNewUrlParser: true }, function(err, db) {
-		if (err) throw err;
-
-		var dbo = db.db("alerts");
-
-		dbo.collection("messages").countDocuments({}, function(err, numOfDocs){
-			if (err) throw err;
-			numOfDocs++;
-			console.log(numOfDocs);
-			const newMsg = 'Hello ' + name +'!';
-
-			var myobj = { id: numOfDocs , msg: newMsg, counter:0 };
-
-			dbo.collection("messages").insertOne(myobj, function(err, resp) {
-				if (err) throw err;
-				return res.json({"msg":'the alert created successfully'});
-			});
-		});
-	});
 
 });
 
@@ -152,12 +107,11 @@ app.post('/add', function(req, res) {
 	// MongoClient.connect(mongoDBurl, { useNewUrlParser: true }, function(err, db) {
 	// 	if (err) throw err;
 
-	// 	var ranMsgId;
-	// 	var dbo = db.db("alerts");
+	// 	const dbo = db.db("alerts");
 
 	// 	dbo.collection("messages").countDocuments({}, function(err, numOfDocs){
 	// 		if (err) throw err;
-	// 		ranMsgId = Math.floor(Math.random() * numOfDocs) + 1; // random number between 1 to numOfDocs
+	// 		const ranMsgId = Math.floor(Math.random() * numOfDocs) + 1; // random number between 1 to numOfDocs
 
 	// 		dbo.collection("messages").findOne({id:ranMsgId}, function(err, result) {
 	// 			if (err) throw err;
@@ -167,6 +121,7 @@ app.post('/add', function(req, res) {
 
 	// 			dbo.collection("messages").updateOne(myquery, newvalues, function(err, unUseResult) {
 	// 				if (err) throw err;
+	// 				console.log(unUseResult);
 	// 				return res.json({"msg":result.msg});
 	// 			});
 	// 		});
