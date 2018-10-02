@@ -18,6 +18,7 @@ upload full-stack website with Heroku + mongodb + mLab
 - [ ] create new app.
 - [ ] connect to github repo.
 - [ ] enable automatic deploy.
+- [ ] initialize PORT.
 - [ ] commit & push the code to GitHub -.then() check on Heroku app.
 
 ### work with mLab:
