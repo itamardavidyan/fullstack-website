@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+
 	$("#showAlertBtn").click(function(){
 		var inputName = $('#name-input').val();
 		fetch('/show', {
@@ -30,5 +31,6 @@ $( document ).ready(function() {
 			.then((data) => {
 				alert(data.msg);
 			});
-    });
+		});
+		
 });
